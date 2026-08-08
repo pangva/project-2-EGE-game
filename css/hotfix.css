@@ -1,0 +1,5 @@
+/* The HUD is visual only. Combat input must reach the WebGL canvas beneath it. */
+#game,#hud,.hud,.crosshair,.lexa,.scan{pointer-events:none}
+#world{pointer-events:auto;touch-action:none;cursor:crosshair}
+#game .crosshair{display:none}
+#modal,.panel,.panel button{pointer-events:auto}

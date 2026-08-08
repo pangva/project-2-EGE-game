@@ -1,0 +1,2 @@
+#weaponOverlay{bottom:2vh}
+@media(max-height:760px){#weaponOverlay{bottom:0}}

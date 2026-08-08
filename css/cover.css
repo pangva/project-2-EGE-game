@@ -1,0 +1,216 @@
+#splash {
+  position: fixed;
+  background: #030711 url('../assets/images/lexa-rift-title-cover.png') center / cover no-repeat;
+  isolation: isolate;
+}
+
+#splash::before {
+  content: none;
+}
+
+#splash .cover-enter {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(24px, 5vh, 58px);
+  transform: translateX(-50%);
+  min-width: min(430px, 82vw);
+  min-height: 78px;
+  padding: 18px 72px;
+  border: 2px solid #fff;
+  border-radius: 0;
+  background:
+    linear-gradient(90deg, transparent 0 8%, #ff2d99 8% 92%, transparent 92%),
+    linear-gradient(180deg, #35091f, #100611);
+  color: #fff;
+  clip-path: polygon(11% 0, 89% 0, 100% 50%, 89% 100%, 11% 100%, 0 50%);
+  font: italic 900 clamp(19px, 1.8vw, 28px)/1 Impact, "Arial Black", sans-serif;
+  letter-spacing: .13em;
+  text-shadow: 3px 3px 0 #42001f, 0 0 12px #fff;
+  box-shadow: 0 9px 0 #16000c, 0 0 0 5px #190817, 0 0 28px #ff2d99bb, inset 0 0 26px #ff8ac755;
+  overflow: visible;
+  isolation: isolate;
+  animation: rift-button-pulse 2.2s ease-in-out infinite;
+}
+
+#splash .cover-enter::before {
+  content: "◆  ENTER THE RIFT  ◆";
+  position: absolute;
+  inset: 7px 23px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border: 2px solid #ffacd5;
+  clip-path: polygon(9% 0, 91% 0, 100% 50%, 91% 100%, 9% 100%, 0 50%);
+  background: linear-gradient(100deg, #67062f, #ed0875 46%, #ff3da8 54%, #67062f);
+  color: #fff;
+  white-space: nowrap;
+}
+
+#splash .cover-enter::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -13px;
+  z-index: 3;
+  width: 70px;
+  height: 15px;
+  transform: translateX(-50%);
+  background: #27efff;
+  clip-path: polygon(0 0, 35% 0, 50% 70%, 65% 0, 100% 0, 70% 100%, 30% 100%);
+  filter: drop-shadow(0 0 7px #27efff);
+}
+
+#splash .cover-enter:hover {
+  transform: translateX(-50%) translateY(-5px) scale(1.035);
+  color: transparent;
+  filter: brightness(1.22);
+  box-shadow: 0 12px 0 #16000c, 0 0 0 5px #190817, 0 0 46px #ff2d99, inset 0 0 34px #ffb3dc88;
+}
+
+#splash .cover-enter:active {
+  transform: translateX(-50%) translateY(3px) scale(.99);
+  box-shadow: 0 3px 0 #16000c, 0 0 0 5px #190817, 0 0 25px #27efff;
+}
+
+@keyframes rift-button-pulse {
+  0%, 100% { filter: drop-shadow(0 0 2px #ff2d99); }
+  50% { filter: drop-shadow(0 0 12px #ff2d99); }
+}
+
+@media (max-aspect-ratio: 4/3) {
+  #splash {
+    background-size: auto 100%;
+  }
+}
+
+#story {
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  background: #030711 url('../assets/images/lexara-story.png') center / cover no-repeat;
+  isolation: isolate;
+}
+
+.story-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at center, #0206111f 0 28%, #0206119c 100%),
+    linear-gradient(90deg, #02040b99, transparent 25% 75%, #02040b99);
+}
+
+.story-copy {
+  width: min(920px, 84vw);
+  margin: 0;
+  text-align: center;
+  color: #f5fbff;
+  font: 750 clamp(22px, 1.75vw, 32px)/1.5 "Segoe UI", Arial, sans-serif;
+  letter-spacing: .035em;
+  text-shadow: 0 3px 2px #000, 0 0 8px #000, 0 0 18px #000, 0 0 38px #020611;
+  opacity: 0;
+}
+
+#story.active .story-copy {
+  animation: story-rise 30s cubic-bezier(.18,.72,.28,1) forwards,
+             story-unfold 1.8s ease-out 30s forwards;
+}
+
+.story-copy h2 {
+  margin: 1.25em 0 .55em;
+  color: #fff;
+  font: italic 900 clamp(44px, 5vw, 82px)/1 Impact, "Arial Black", sans-serif;
+  letter-spacing: .1em;
+  text-shadow: 5px 5px #02050a, -3px 0 #ff2d99, 3px 0 #21eaff, 0 0 24px #000;
+}
+
+.story-copy p { margin: .72em 0; }
+.story-copy strong { color: #fff; font-weight: 900; text-shadow: 0 0 5px #000, 0 0 14px #25e9ff; }
+.story-copy .story-motto { margin-top: 1.35em; color: #ff3da8; font-size: 1.18em; letter-spacing: .13em; }
+.story-copy .story-final { font-size: 1.48em; line-height: 1.22; letter-spacing: .13em; color: #55f4ff; }
+
+.story-continue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(14px, 2.5vh, 28px);
+  z-index: 2;
+  min-width: min(430px, 82vw);
+  min-height: 72px;
+  padding: 17px 68px;
+  transform: translateX(-50%);
+  border: 2px solid #eaffff;
+  border-radius: 0;
+  background:
+    linear-gradient(90deg, transparent 0 8%, #12dced 8% 92%, transparent 92%),
+    linear-gradient(180deg, #082d3d, #020d16);
+  clip-path: polygon(11% 0, 89% 0, 100% 50%, 89% 100%, 11% 100%, 0 50%);
+  color: transparent;
+  font: italic 900 clamp(18px, 1.6vw, 25px)/1 Impact, "Arial Black", sans-serif;
+  letter-spacing: .12em;
+  box-shadow: 0 8px 0 #001018, 0 0 0 5px #061923, 0 0 30px #20efff99, inset 0 0 26px #8cffff44;
+  overflow: visible;
+  isolation: isolate;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.story-continue::before {
+  content: "‹‹  CHOOSE YOUR HUNTER  ››";
+  position: absolute;
+  inset: 7px 24px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #a8fbff;
+  background: linear-gradient(100deg, #063847, #08a9bd 47%, #19deed 53%, #063847);
+  clip-path: polygon(9% 0, 91% 0, 100% 50%, 91% 100%, 9% 100%, 0 50%);
+  color: #fff;
+  text-shadow: 3px 3px #003a48, 0 0 10px #fff;
+  white-space: nowrap;
+}
+
+.story-continue::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  width: 92px;
+  height: 8px;
+  transform: translateX(-50%);
+  background: #ff3da8;
+  clip-path: polygon(12% 0, 88% 0, 100% 50%, 88% 100%, 12% 100%, 0 50%);
+  filter: drop-shadow(0 0 7px #ff3da8);
+}
+
+#story.active .story-continue {
+  animation: story-button .8s ease 31.5s forwards;
+}
+
+.story-continue:hover { transform: translateX(-50%) translateY(-3px); }
+.story-continue:hover { filter: brightness(1.25); box-shadow: 0 11px 0 #001018, 0 0 0 5px #061923, 0 0 45px #20efff; }
+.story-continue:active { transform: translateX(-50%) translateY(3px) scale(.99); }
+
+@keyframes story-rise {
+  0% { opacity: 0; transform: translateY(105vh) scale(.82); }
+  5% { opacity: 1; }
+  82%, 100% { opacity: 1; transform: translateY(0) scale(.92); }
+}
+
+@keyframes story-unfold {
+  from { width: min(920px, 84vw); transform: translateY(0) scale(.92); }
+  to { width: min(1420px, 92vw); transform: translateY(-8vh) scale(1); }
+}
+
+@keyframes story-button {
+  to { opacity: 1; pointer-events: auto; }
+}
+
+@media (max-height: 760px) {
+  .story-copy { width: min(1050px, 88vw); font-size: clamp(16px, 2.15vh, 21px); line-height: 1.32; }
+  .story-copy h2 { margin: .7em 0 .32em; font-size: clamp(34px, 6vh, 52px); }
+  .story-copy p { margin: .42em 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #story.active .story-copy { animation: none; width: min(1420px, 92vw); opacity: 1; }
+  #story.active .story-continue { animation: none; opacity: 1; pointer-events: auto; }
+}

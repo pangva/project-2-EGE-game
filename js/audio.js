@@ -1,0 +1,6 @@
+let ctx,enabled=true,hum;
+export function setSound(v){enabled=v;if(ctx)ctx.resume()}
+function tone(f=220,d=.08,type='square',vol=.035){if(!enabled)return;ctx??=new AudioContext();const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(vol,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d);o.connect(g).connect(ctx.destination);o.start();o.stop(ctx.currentTime+d)}
+export const sfx={hover:()=>tone(420,.03),click:()=>tone(250,.06),shot:()=>tone(100,.08,'sawtooth',.06),correct:()=>{tone(660,.12);setTimeout(()=>tone(990,.18),80)},wrong:()=>tone(75,.3,'sawtooth',.08),hit:()=>tone(180,.05),death:()=>tone(55,.5,'square',.07),xp:()=>tone(850,.1),level:()=>tone(1200,.5,'sine',.08),victory:()=>[440,660,880].forEach((x,i)=>setTimeout(()=>tone(x,.35,'triangle',.06),i*120))};
+export function ambient(mode='hub'){if(!enabled||hum)return;ctx??=new AudioContext();const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value={hub:46,form:55,link:62,echo:41}[mode]||46;g.gain.value=.012;o.connect(g).connect(ctx.destination);o.start();hum={o,g}}
+export function stopAmbient(){hum?.o.stop();hum=null}

@@ -1,0 +1,1 @@
+#game.active .scan{left:auto;right:28px;bottom:30px;transform:none;min-width:245px;text-align:center}#weaponOverlay{animation:blaster-idle 2.4s ease-in-out infinite;will-change:transform}@keyframes blaster-idle{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.008)}}@media(max-width:1366px){#game.active .scan{right:20px;min-width:220px}}
