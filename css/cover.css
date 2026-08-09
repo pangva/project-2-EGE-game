@@ -651,7 +651,7 @@
 #hub .hub-heading h1::before { content: "LEXA:"; color: #f40879; }
 #hub .hub-heading h1::after { content: "RIFT"; color: #24dff3; }
 #hub .hub-heading p {
-  margin-top: 7px;
+  margin-top: 16px;
   color: #fff;
   font-size: 0;
   letter-spacing: .045em;
@@ -748,6 +748,112 @@
   box-shadow: 0 5px 0 #02050a, 0 0 20px #42f6ff;
 }
 
+/* Compact landscape layout for wide monitors with limited vertical space. */
+@media (min-width: 900px) and (max-height: 820px),
+       (min-width: 1400px) and (min-aspect-ratio: 16/10) {
+  #splash .cover-enter {
+    bottom: 20px;
+    min-height: 62px;
+    padding-block: 12px;
+  }
+
+  #menu { gap: 18px; }
+  .menu-heading { margin-top: 34px; }
+  .menu-heading h2 { font-size: clamp(38px, 6vh, 52px); }
+  .menu-button {
+    min-height: 86px;
+    padding: 13px 38px 12px 58px;
+  }
+  .menu-button > span { font-size: clamp(27px, 4.5vh, 38px); }
+  .menu-button strong { font-size: clamp(22px, 3.8vh, 29px); }
+  .menu-button small { margin-top: 3px; }
+
+  .story-copy {
+    width: min(1120px, 90vw);
+    font-size: clamp(15px, 2.25vh, 19px);
+    line-height: 1.27;
+  }
+  .story-copy h2 {
+    margin: .5em 0 .2em;
+    font-size: clamp(28px, 5.2vh, 42px);
+    letter-spacing: .07em;
+    text-shadow: 3px 3px #02050a, -2px 0 #ff2d99, 2px 0 #21eaff, 0 0 16px #000;
+  }
+  .story-copy p { margin: .3em 0; }
+  .story-copy .story-motto {
+    margin-top: .6em;
+    font-size: 1.02em;
+    letter-spacing: .09em;
+  }
+  .story-copy .story-final {
+    font-size: 1.14em;
+    line-height: 1.12;
+    letter-spacing: .09em;
+  }
+  #story.active .story-copy {
+    animation: story-rise-compact 30s cubic-bezier(.18,.72,.28,1) forwards,
+               story-unfold-compact 1.8s ease-out 30s forwards;
+  }
+  .story-continue {
+    bottom: 10px;
+    min-height: 56px;
+    padding-block: 10px;
+  }
+
+  #select header { padding-block: 10px; }
+  #select .select-title { top: 48px; }
+  #select .select-title h2 { font-size: clamp(32px, 7vh, 54px); }
+  #select .hunter-copy { bottom: 68px; }
+  #select .hunter-copy strong { font-size: clamp(36px, 8vh, 60px); }
+  #select #confirm { bottom: 12px; padding-block: 9px; }
+
+  #hub .hub-heading { top: 5px; }
+  #hub .hub-heading h1::before,
+  #hub .hub-heading h1::after { font-size: clamp(52px, 12vh, 82px); }
+  #hub .hub-heading p { margin-top: 10px; }
+  #hub .identity { top: 10px; height: 76px; }
+  #hub .identity img { width: 54px; height: 58px; }
+  #hub .cards { bottom: 38px; height: 48vh; }
+  #hub .card-info { height: 55%; padding-top: 18px; }
+  #hub .card-info h2 { font-size: clamp(22px, 4.2vh, 31px); }
+  #hub .card-info p { display: none; }
+  #hub .core-emblem { top: 18px; }
+  #hub .actions { bottom: 9px; }
+  #hub footer { height: 32px; padding-block: 6px; }
+
+  #game #hud {
+    grid-template-rows: 104px 1fr;
+    padding: 14px 18px;
+    column-gap: 16px;
+  }
+  #game.active .hud.hero,
+  #game.active .mission,
+  #game.active .score { height: 104px; }
+  #game.active .hud.hero #hudAvatar { width: 52px; height: 70px; flex-basis: 52px; }
+  #game.active .mission { padding-block: 8px; }
+  #game.active .mission b { font-size: clamp(22px, 4vh, 28px) !important; }
+  #game.active .score { padding-block: 12px; line-height: 1.45; }
+  #game.active .lexa { bottom: 18px; min-height: 46px; padding: 10px 18px; font-size: 14px; }
+  #game.active .return-missions { bottom: 18px; }
+  #weaponOverlay { height: min(37vh, 290px); }
+
+  .panel { max-height: 92vh; padding: 24px 30px; }
+  .panel h2 { margin-block: .45em; font-size: 26px; }
+  .panel h3 { margin-block: .55em; }
+  .panel p { margin-block: .55em; }
+}
+
+@keyframes story-rise-compact {
+  0% { opacity: 0; transform: translateY(102vh) scale(.86); }
+  5% { opacity: 1; }
+  82%, 100% { opacity: 1; transform: translateY(-1vh) scale(.96); }
+}
+
+@keyframes story-unfold-compact {
+  from { width: min(1120px, 90vw); transform: translateY(-1vh) scale(.96); }
+  to { width: min(1260px, 92vw); transform: translateY(-3vh) scale(1); }
+}
+
 /* No guide-line overlays in any mission. */
 #game.active::after,
 #game.game-form::after,
@@ -764,4 +870,207 @@
   opacity: 1 !important;
   pointer-events: auto !important;
   cursor: pointer !important;
+}
+
+/* Game 1: persistent final boss integrity meter. */
+#game.active .boss-bar {
+  position: absolute;
+  left: auto;
+  right: clamp(16px, 2.2vw, 38px);
+  top: clamp(160px, 24vh, 250px);
+  bottom: auto;
+  z-index: 20;
+  width: min(390px, 30vw);
+  padding: 13px 16px 15px;
+  transform: none;
+  border: 3px solid #ff9d32;
+  background: linear-gradient(180deg, #170d08f2, #05080df5);
+  box-shadow: 0 5px 0 #02050a, 0 0 0 2px #3b1c0b, 0 0 24px #ff6a1f88;
+  clip-path: polygon(13px 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 0 100%, 0 13px);
+  text-align: center;
+  pointer-events: none;
+}
+#game.active .boss-bar[hidden] { display: none; }
+#game.active .boss-bar b { display: block; margin-bottom: 9px; color: #ffd3a2; font: 900 14px/1.15 "Segoe UI",Arial,sans-serif; letter-spacing: .12em; }
+#game.active .boss-bar > div { height: 24px; overflow: hidden; border: 2px solid #fff; background: #260807; box-shadow: inset 0 0 10px #000; }
+#game.active .boss-bar i { display: block; width: 100%; height: 100%; background: linear-gradient(90deg,#ff3018,#ff9d32,#ffe66b); box-shadow: 0 0 14px #ff6a1f; transition: width .4s ease; }
+#game.active .boss-bar span { position: absolute; right: 22px; bottom: 21px; color: #fff; font: 900 13px/1 "Segoe UI",Arial,sans-serif; text-shadow: 1px 1px #000; }
+#game.active .boss-bar.critical { animation: boss-bar-alert .55s ease-in-out infinite alternate; }
+#game.active .boss-bar.destroyed i { background: #fff; box-shadow: 0 0 24px #fff; }
+@keyframes boss-bar-alert { to { filter: drop-shadow(0 0 10px #ff2418); } }
+
+@media (max-height: 820px) {
+  #game.active .boss-bar { top: clamp(130px, 21vh, 175px); right: 16px; bottom: auto; width: min(360px, 29vw); padding-block: 10px 12px; }
+  #game.active .boss-bar > div { height: 20px; }
+  #game.active .boss-bar span { bottom: 16px; }
+}
+
+/* FORM mission reward mini-cartoon. */
+#formReward {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center,transparent 28%,#02050b66 100%),
+    url('../assets/images/verb-wastes.png') center/cover no-repeat;
+  isolation: isolate;
+  font-family: "Segoe UI",Arial,sans-serif;
+}
+#formReward::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#030711cc 0 10%,transparent 28% 68%,#030711f2 100%); }
+.reward-scanlines { position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(0deg,transparent 0 4px,#58efff0a 5px); mix-blend-mode:screen; }
+.reward-header {
+  position:absolute; top:18px; left:50%; z-index:8; width:min(870px,70vw); padding:12px 70px 14px; transform:translateX(-50%) translateY(-130%);
+  border-block:3px solid #42f6ff; background:linear-gradient(90deg,transparent,#071522f5 12% 88%,transparent); text-align:center;
+  filter:drop-shadow(0 7px 0 #02050a); animation:reward-header-in .65s .2s cubic-bezier(.2,.8,.2,1.2) forwards;
+}
+.reward-header small,.reward-header span { display:block; color:#8ef8ff; font-weight:900; letter-spacing:.2em; }
+.reward-header strong { display:block; color:#fff; font:italic 900 clamp(34px,4.1vw,65px)/.95 Impact,"Arial Black",sans-serif; letter-spacing:.07em; text-shadow:5px 5px #02050a,-2px 0 #ff3da8,2px 0 #42f6ff; }
+.reward-header span { margin-top:5px; color:#ffd43b; font-size:12px; }
+.reward-scene { position:absolute; left:3vw; top:105px; bottom:160px; width:50vw; overflow:visible; border:0; background:transparent; box-shadow:none; }
+.reward-scene::after { content:"FIELD RECORD // WEAPON SYNCHRONIZATION"; position:absolute; left:14px; top:12px; color:#b8faff; font-size:10px; font-weight:900; letter-spacing:.16em; }
+.reward-hero { position:absolute; left:-2%; bottom:-17%; width:auto; height:116%; opacity:0; transform:translateX(-35%) scale(.94); border:0!important; background:transparent!important; box-shadow:none!important; clip-path:none!important; filter:drop-shadow(12px 8px 5px #02050acc) drop-shadow(0 0 16px #42f6ff55); animation:reward-hero-in .85s 1s ease-out forwards; }
+.reward-hero.nyra { left:1%; border:0!important; background:transparent!important; }
+.reward-burst { position:absolute; left:66%; top:48%; width:80px; height:80px; z-index:2; transform:translate(-50%,-50%) scale(0); border-radius:50%; background:radial-gradient(circle,#fff 0 6%,#42f6ff 10% 22%,#42f6ff55 32%,transparent 67%); box-shadow:0 0 50px #42f6ff; animation:reward-core-burst 1.5s 1.65s ease-out forwards; }
+.reward-beam { position:absolute; left:48%; right:4%; top:45%; height:6px; z-index:2; opacity:0; background:linear-gradient(90deg,transparent,#fff,#42f6ff,transparent); box-shadow:0 0 14px #42f6ff,0 0 32px #42f6ff; animation:reward-beam 1.2s 1.7s ease-out forwards; }
+.reward-weapon { position:absolute; left:49%; top:24%; z-index:3; width:56%; height:auto; opacity:0; transform:translateY(-25px) scale(.35) rotate(-8deg); filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 24px #42f6ff); animation:reward-weapon-in 1.15s 2s cubic-bezier(.15,.9,.2,1.2) forwards,reward-weapon-float 2.4s 3.2s ease-in-out infinite; }
+.reward-name { position:absolute; right:3%; bottom:5%; z-index:4; width:54%; padding:13px 16px 14px 38px; opacity:0; transform:translateX(45%); color:#fff; border:3px solid #ff9d32; background:linear-gradient(105deg,#1f0b05f4,#07131ff2); clip-path:polygon(25px 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,0 100%,0 25px); animation:reward-card-in .7s 3.05s ease-out forwards; }
+.reward-name::before { content:""; position:absolute; left:8px; top:8px; bottom:8px; width:6px; background:#42f6ff; box-shadow:0 0 12px #42f6ff; }
+.reward-name small,.reward-name span { display:block; color:#ffd43b; font-size:10px; font-weight:900; letter-spacing:.13em; }
+.reward-name strong { display:block; font:italic 900 clamp(28px,3vw,48px)/1 Impact,"Arial Black",sans-serif; letter-spacing:.07em; text-shadow:3px 3px #02050a; }
+.reward-name span { color:#9bf9ff; }
+.reward-briefing { position:absolute; top:42vh; right:3vw; width:39vw; padding:24px 28px; opacity:0; transform:translateX(25%); border:3px solid #ff3da8; border-left-width:9px; background:linear-gradient(120deg,#170913e8,#071522df); clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,0 100%); box-shadow:8px 8px #02050a,0 0 22px #ff3da855; backdrop-filter:blur(3px); animation:reward-briefing-in .8s 3.8s ease-out forwards; }
+.reward-briefing h2 { margin:0 0 10px; color:#fff; font:italic 900 clamp(25px,2.6vw,42px)/1 Impact,"Arial Black",sans-serif; letter-spacing:.05em; text-shadow:3px 3px #02050a,-2px 0 #ff3da8; }
+.reward-briefing p { margin:8px 0; color:#e5faff; font-size:clamp(14px,1.1vw,18px); line-height:1.35; font-weight:700; }
+.reward-briefing b { color:#ffd43b; }
+.reward-progress { position:absolute; left:3vw; right:3vw; bottom:66px; z-index:7; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.reward-progress > div { position:relative; min-height:82px; padding:13px 18px 11px 25px; opacity:0; transform:translateY(55px); color:#fff; border:3px solid #42f6ff; background:linear-gradient(120deg,#10283cf5,#06101bf5); clip-path:polygon(15px 0,calc(100% - 24px) 0,100% 24px,100% 100%,0 100%,0 15px); box-shadow:6px 6px #02050a; animation:reward-stat-in .55s ease-out forwards; }
+.reward-progress > div::before { content:""; position:absolute; left:7px; top:10px; bottom:10px; width:5px; background:#42f6ff; box-shadow:0 0 10px #42f6ff; }
+.reward-progress > div:nth-child(1){animation-delay:5s}.reward-progress > div:nth-child(2){animation-delay:5.2s}.reward-progress > div:nth-child(3){animation-delay:5.4s}.reward-progress > div:nth-child(4){animation-delay:5.6s}
+.reward-progress small,.reward-progress span { display:block; color:#8ef8ff; font-size:10px; font-weight:900; letter-spacing:.14em; }
+.reward-progress b { display:block; margin:3px 0; color:#fff; font:italic 900 clamp(21px,2vw,31px)/1 Impact,"Arial Black",sans-serif; letter-spacing:.05em; }
+.reward-progress em { color:#ffd43b; font-style:normal; }
+.reward-progress .next-core { border-color:#ff3da8; background:linear-gradient(120deg,#2a0b20f5,#07101bf5); }
+.reward-progress .next-core::before { background:#ff3da8; box-shadow:0 0 10px #ff3da8; }
+.reward-return { position:absolute; left:50%; bottom:12px; z-index:9; min-width:min(390px,72vw); padding:12px 38px; opacity:0; pointer-events:none; transform:translateX(-50%) translateY(35px); border:2px solid #fff; background:linear-gradient(90deg,#073946,#0aa9bb 46%,#de197c 54%,#56062f); box-shadow:0 6px #02050a,0 0 22px #42f6ff88; clip-path:polygon(9% 0,91% 0,100% 50%,91% 100%,9% 100%,0 50%); animation:reward-button-in .65s 6.4s ease-out forwards; }
+.reward-return:hover { transform:translateX(-50%) translateY(-3px)!important; }
+@keyframes reward-header-in{to{transform:translateX(-50%) translateY(0)}}
+@keyframes reward-hero-in{to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes reward-core-burst{0%{transform:translate(-50%,-50%) scale(0);opacity:0}35%{transform:translate(-50%,-50%) scale(4);opacity:1}100%{transform:translate(-50%,-50%) scale(8);opacity:0}}
+@keyframes reward-beam{0%{opacity:0;transform:scaleX(.05)}30%{opacity:1;transform:scaleX(1)}100%{opacity:0;transform:scaleX(1)}}
+@keyframes reward-weapon-in{to{opacity:1;transform:translateY(0) scale(1) rotate(-4deg)}}
+@keyframes reward-weapon-float{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@keyframes reward-card-in{to{opacity:1;transform:translateX(0)}}
+@keyframes reward-briefing-in{to{opacity:1;transform:translateX(0)}}
+@keyframes reward-stat-in{to{opacity:1;transform:translateY(0)}}
+@keyframes reward-button-in{to{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}}
+
+@media (max-height:820px) and (min-width:900px) {
+  .reward-header { top:8px; padding-block:7px 9px; }
+  .reward-header strong { font-size:clamp(30px,6vh,46px); }
+  .reward-header small,.reward-header span { font-size:9px; }
+  .reward-scene { top:74px; bottom:132px; }
+  .reward-briefing { top:39vh; padding:16px 22px; }
+  .reward-briefing h2 { font-size:clamp(23px,4.5vh,34px); }
+  .reward-briefing p { margin:5px 0; font-size:13px; }
+  .reward-progress { bottom:52px; }
+  .reward-progress > div { min-height:68px; padding-block:9px 7px; }
+  .reward-return { bottom:7px; padding-block:9px; }
+}
+
+/* Game 2: Riftbreaker lightning combat. */
+#game.game-link.active ~ #weaponOverlay {
+  display:block!important; visibility:visible!important; opacity:1!important;
+  left:50%!important; right:auto!important; top:auto!important; bottom:-11vh!important;
+  width:min(48vw,760px)!important; height:auto!important; z-index:8;
+  translate:-50% 0!important; rotate:0deg!important; transform-origin:center bottom;
+  filter:drop-shadow(-8px 10px 8px #000b) drop-shadow(0 0 16px #42f6ff88);
+}
+#game.game-link ~ #beam {
+  height:18px;
+  border-radius:0;
+  background:linear-gradient(90deg,#fff,#65fbff 16%,#bf65ff 55%,#42f6ff 78%,transparent);
+  clip-path:polygon(0 35%,12% 4%,20% 62%,31% 17%,42% 73%,55% 13%,67% 65%,78% 20%,89% 58%,100% 34%,100% 66%,89% 84%,78% 48%,67% 94%,55% 41%,42% 96%,31% 47%,20% 89%,12% 42%,0 65%);
+  box-shadow:0 0 9px #fff,0 0 22px #42f6ff,0 0 42px #b735ff;
+  filter:drop-shadow(0 -7px 5px #42f6ff) drop-shadow(0 8px 6px #b735ff);
+}
+#game.game-link ~ #muzzleFlash {
+  background:radial-gradient(circle,#fff 0 7%,#71fbff 10% 24%,#be47ff99 30% 48%,transparent 70%);
+  filter:drop-shadow(0 0 25px #42f6ff) drop-shadow(0 0 35px #b735ff);
+}
+#lightningFx { position:fixed; inset:0; z-index:9; display:none; width:100%; height:100%; overflow:visible; pointer-events:none; }
+#game.game-link ~ #lightningFx.fire { display:block; animation:electric-screen-flash .38s ease-out forwards; }
+#lightningFx path { fill:none; stroke-linecap:round; stroke-linejoin:round; filter:url(#electricGlow); }
+#lightningFx .electric-halo { stroke:#8b39ff; stroke-width:18; opacity:.32; }
+#lightningFx .electric-arc { stroke:#42f6ff; stroke-width:8; opacity:.92; }
+#lightningFx .electric-core { stroke:#fff; stroke-width:3; }
+#lightningFx .electric-branch { stroke:#a8ffff; stroke-width:3.5; opacity:.9; }
+#lightningFx .electric-web { stroke:#62f7ff; stroke-width:4.5; opacity:.94; }
+#lightningFx.fire path { stroke-dasharray:38 5; animation:electric-dash .09s steps(2) 5,electric-fade .68s ease-out forwards; }
+#electricSparks { position:fixed; inset:0; z-index:10; overflow:hidden; pointer-events:none; }
+#electricSparks strong { position:absolute; width:var(--aura-w); height:var(--aura-h); translate:-50% -50%; border-radius:46%; background:radial-gradient(ellipse,transparent 38%,#65faff24 58%,#ac3cff66 75%,transparent 78%); box-shadow:inset 0 0 34px #58faffaa,0 0 55px #693cffaa; animation:electric-aura .68s steps(3) forwards; }
+#electricSparks i { position:absolute; width:clamp(2px,.22vw,4px); height:clamp(12px,1.7vw,28px); transform-origin:center top; background:linear-gradient(#fff 0 22%,#70fbff 45%,#9d3cff 72%,transparent); clip-path:polygon(45% 0,100% 0,61% 42%,90% 42%,18% 100%,39% 56%,5% 56%); box-shadow:0 0 8px #fff,0 0 18px #42f6ff,0 0 28px #b63cff; animation:electric-spark-burst .58s cubic-bezier(.1,.72,.3,1) forwards; }
+@keyframes electric-dash { to { stroke-dashoffset:-78; } }
+@keyframes electric-fade { 0%,55%{opacity:1}100%{opacity:0} }
+@keyframes electric-screen-flash { 0%,45%{filter:brightness(1.45)}100%{filter:brightness(1)} }
+@keyframes electric-aura { 0%{opacity:0;scale:.72}15%,62%{opacity:1;scale:1.06}30%{scale:.94}100%{opacity:0;scale:1.12} }
+@keyframes electric-spark-burst { 0%{opacity:0;transform:translate(0,0) rotate(var(--spark-r)) scaleY(.2)}14%,60%{opacity:1}100%{opacity:0;transform:translate(var(--spark-x),var(--spark-y)) rotate(var(--spark-r)) scaleY(1.5)} }
+#game.game-link .boss-bar { border-color:#ff3da8; box-shadow:0 5px 0 #02050a,0 0 0 2px #35102c,0 0 26px #ff3da899; }
+#game.game-link .boss-bar i { background:linear-gradient(90deg,#792cff,#ff3da8,#42f6ff); box-shadow:0 0 16px #ff3da8; }
+
+/* Mission 2 reward variant. */
+#formReward.reward-link {
+  background:radial-gradient(ellipse at center,transparent 28%,#02050b77 100%),url('../assets/images/neon-city.png') center/cover no-repeat;
+}
+#formReward.reward-link .reward-header { border-color:#ff3da8; background:linear-gradient(90deg,transparent,#1d0920f5 12% 88%,transparent); }
+#formReward.reward-link .reward-scene::after { content:"FIELD RECORD // DEFENCE SYNCHRONIZATION"; }
+#formReward.reward-link .reward-header strong { text-shadow:5px 5px #02050a,-2px 0 #ff3da8,2px 0 #42f6ff; }
+#formReward.reward-link .reward-weapon { left:51%; top:10%; width:43%; transform:translateY(-25px) scale(.35) rotate(5deg); }
+#formReward.reward-link .reward-name { border-color:#ff3da8; background:linear-gradient(105deg,#2b0922f4,#07131ff2); }
+#formReward.reward-link .reward-name::before { background:#ff3da8; box-shadow:0 0 12px #ff3da8; }
+#formReward.reward-link .reward-briefing { border-color:#42f6ff; border-left-color:#42f6ff; box-shadow:8px 8px #02050a,0 0 22px #42f6ff66; }
+@media (max-height:820px) and (min-width:900px) {
+  #game.game-link.active ~ #weaponOverlay { left:50%!important; width:min(46vw,650px)!important; bottom:-10vh!important; }
+  #formReward.reward-link .reward-weapon { top:7%; width:39%; }
+}
+
+/* Game 3: flamethrower combat. */
+#game.game-echo.active ~ #weaponOverlay {
+  display:block!important; visibility:visible!important; opacity:1!important;
+  left:50%!important; right:auto!important; top:auto!important; bottom:-11vh!important;
+  width:min(48vw,760px)!important; height:auto!important; z-index:8;
+  translate:-50% 0!important; rotate:0deg!important; transform-origin:center bottom;
+  filter:drop-shadow(-9px 11px 8px #000c) drop-shadow(0 0 15px #ff6a1255);
+}
+#game.game-echo ~ #beam { display:none!important; }
+#game.game-echo ~ #muzzleFlash {
+  width:130px; height:130px;
+  background:radial-gradient(circle,#fff 0 5%,#fff06a 8% 17%,#ff8a12 22% 39%,#ff260099 45% 58%,transparent 72%);
+  filter:drop-shadow(0 0 22px #fff06a) drop-shadow(0 0 42px #ff3b00);
+}
+#fireFx { position:fixed; inset:0; z-index:9; overflow:hidden; pointer-events:none; mix-blend-mode:screen; }
+#fireFx.fire { animation:fire-screen-glow .88s ease-out; }
+#fireFx i,#fireFx strong { position:absolute; display:block; pointer-events:none; }
+#fireFx i { transform:translate(-50%,-50%) rotate(var(--fire-r)) scale(.15); border-radius:48% 52% 46% 54% / 62% 58% 42% 38%; background:radial-gradient(ellipse at 50% 62%,#fff 0 5%,#fff7a0 10%,#ffd52f 22%,#ff8a08 42%,#ff3600 62%,#8d090044 76%,transparent 82%); box-shadow:0 0 16px #ffd84a,0 0 38px #ff4b00,0 -12px 32px #ff260088; filter:blur(2.2px) saturate(1.3); }
+#fireFx .stream-flame { animation:fire-stream-particle .54s cubic-bezier(.1,.65,.2,1) forwards; }
+#fireFx .enemy-flame { transform-origin:center bottom; animation:enemy-immolation .78s cubic-bezier(.12,.65,.22,1) forwards; filter:blur(3px) saturate(1.45) drop-shadow(0 0 22px #ff3600); }
+#fireFx .fire-blast { width:280px;height:280px;translate:-50% -50%;border-radius:47% 53% 44% 56% / 53% 45% 55% 47%;background:radial-gradient(circle,#fff 0 4%,#fff477 10%,#ff9b16 25%,#ff3100bb 44%,#7d080055 62%,transparent 74%);filter:blur(5px) saturate(1.35);box-shadow:0 0 42px #fff477,0 0 95px #ff5a00,0 0 145px #ff240099;animation:fire-impact-blast .72s ease-out forwards; }
+@keyframes fire-stream-particle { 0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--fire-r)) scale(.12)}18%,72%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--fire-x)),calc(-50% + var(--fire-y))) rotate(var(--fire-r)) scale(1.28)} }
+@keyframes enemy-immolation { 0%{opacity:0;transform:translate(-50%,-25%) rotate(var(--fire-r)) scale(.2,.12)}20%,72%{opacity:.98;transform:translate(-50%,-50%) rotate(var(--fire-r)) scale(1)}100%{opacity:0;transform:translate(-50%,-90%) rotate(var(--fire-r)) scale(.72,1.55)} }
+@keyframes fire-impact-blast { 0%{opacity:0;scale:.08}16%{opacity:1;scale:.55}46%{opacity:.95;scale:1.08}100%{opacity:0;scale:1.48} }
+@keyframes fire-screen-glow { 0%,42%{filter:brightness(1.35) saturate(1.25)}100%{filter:none} }
+#game.game-echo .boss-bar { border-color:#ff7a18; box-shadow:0 5px 0 #02050a,0 0 0 2px #3b1607,0 0 28px #ff5a0088; }
+#game.game-echo .boss-bar i { background:linear-gradient(90deg,#ff2400,#ff8a12,#fff05a); box-shadow:0 0 17px #ff6a00; }
+
+/* Final ECHO reward and restored-system scene. */
+#formReward.reward-echo { background:radial-gradient(ellipse at center,transparent 24%,#02050b70 100%),url('../assets/images/echo-station.png') center/cover no-repeat; }
+#formReward.reward-echo .reward-header { border-color:#ffd43b; background:linear-gradient(90deg,transparent,#081a2bf5 12% 88%,transparent); }
+#formReward.reward-echo .reward-header strong { color:#fff9c7; text-shadow:5px 5px #02050a,-2px 0 #ff3da8,2px 0 #42f6ff,0 0 22px #ffd43b; }
+#formReward.reward-echo .reward-scene::after { content:"FINAL RECORD // THREE-CORE SYNCHRONIZATION"; color:#fff3a0; }
+#formReward.reward-echo .reward-weapon { left:52%; top:7%; width:40%; }
+#formReward.reward-echo .reward-name { border-color:#ffd43b; background:linear-gradient(105deg,#241a05f4,#071728f2); }
+#formReward.reward-echo .reward-name::before { background:linear-gradient(#ff8a12,#ff3da8,#42f6ff); box-shadow:0 0 14px #ffd43b; }
+#formReward.reward-echo .reward-briefing { border-color:#ffd43b; border-left-color:#ffd43b; box-shadow:8px 8px #02050a,0 0 26px #ffd43b55; }
+#formReward.reward-echo .next-core { border-color:#ffd43b; background:linear-gradient(120deg,#292005f5,#07101bf5); }
+#formReward.reward-echo .next-core::before { background:#ffd43b; box-shadow:0 0 11px #ffd43b; }
+@media (max-height:820px) and (min-width:900px) {
+  #game.game-echo.active ~ #weaponOverlay { width:min(46vw,650px)!important; bottom:-10vh!important; }
+  #formReward.reward-echo .reward-weapon { top:4%; width:36%; }
 }
